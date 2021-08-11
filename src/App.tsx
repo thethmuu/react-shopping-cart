@@ -1,7 +1,8 @@
-import { LinearProgress } from '@material-ui/core';
+import { Grid, LinearProgress } from '@material-ui/core';
 
 // styles
 import { useQuery } from 'react-query';
+import Item from './components/Item/Item';
 import { Wrapper } from './App.styles';
 
 // types
@@ -32,7 +33,17 @@ const App = () => {
   if (isLoading) return <LinearProgress />;
   if (error) return <div>Something went wrong...</div>;
 
-  return <div className="App">Start</div>;
+  return (
+    <Wrapper>
+      <Grid container spacing={3} >
+        {data?.map((item) => (
+          <Grid item key={item.id} xs={12} sm={4}>
+            <Item item={item} handleAddToCart={handleAddToCart} />
+          </Grid>
+        ))}
+      </Grid>
+    </Wrapper>
+  );
 };
 
 export default App;
