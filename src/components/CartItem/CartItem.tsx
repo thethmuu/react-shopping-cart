@@ -30,7 +30,7 @@ const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => (
         <p>{item.amount}</p>
       </div>
     </div>
-    <img src={item.image} alt={item.title} />
+    <img src={item.image} alt={item.title} loading="lazy" />
   </Wrapper>
 );
 
