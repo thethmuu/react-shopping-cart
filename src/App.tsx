@@ -1,4 +1,10 @@
-import { Grid, LinearProgress, Drawer, Badge } from '@material-ui/core';
+import {
+  Grid,
+  LinearProgress,
+  Drawer,
+  Badge,
+  makeStyles,
+} from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
 
 // styles
@@ -19,10 +25,20 @@ export type CartItemType = {
   amount: number;
 };
 
+// Drawer background color
+const useStyles = makeStyles({
+  paper: {
+    background: '#333333',
+    color: '#cbc8c9;'
+  },
+});
+
 const getProducts = async (): Promise<CartItemType[]> =>
   await (await fetch('https://fakestoreapi.com/products')).json();
 
 const App = () => {
+  const styles = useStyles();
+
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
 
@@ -69,7 +85,12 @@ const App = () => {
 
   return (
     <Wrapper>
-      <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
+      <Drawer
+        anchor="right"
+        open={cartOpen}
+        onClose={() => setCartOpen(false)}
+        classes={{ paper: styles.paper }}
+      >
         <Cart
           cartItems={cartItems}
           addToCart={handleAddToCart}
@@ -78,7 +99,7 @@ const App = () => {
       </Drawer>
 
       <StyledButton onClick={() => setCartOpen(true)}>
-        <Badge badgeContent={getTotalItems(cartItems)}>
+        <Badge badgeContent={getTotalItems(cartItems)} color="error">
           <AddShoppingCart />
         </Badge>
       </StyledButton>

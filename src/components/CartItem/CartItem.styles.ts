@@ -17,8 +17,9 @@ export const Wrapper = styled.div`
   }
 
   img {
-    max-width: 80px;
+    max-width: 100px;
     object-fit: cover;
-    margin-left: 40px;
+    border-radius: 5px;
+    margin-left: 30px;
   }
 `;
