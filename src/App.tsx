@@ -51,7 +51,18 @@ const App = () => {
     });
   };
 
-  const handleRemoveFromCart = () => null;
+  const handleRemoveFromCart = (id: number) => {
+    setCartItems((prev) =>
+      prev.reduce((accu, item) => {
+        if (item.id === id) {
+          if (item.amount === 1) return accu;
+          return [...accu, { ...item, amount: item.amount - 1 }];
+        } else {
+          return [...accu, item];
+        }
+      }, [] as CartItemType[])
+    );
+  };
 
   if (isLoading) return <LinearProgress />;
   if (error) return <div>Something went wrong...</div>;
